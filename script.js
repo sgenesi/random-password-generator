@@ -16,19 +16,19 @@ var alphaUpperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L"
 function generatePassword() {
   var confirmLength = (prompt("How many characters should your password contain?"));
 
-  // Loop if answer is outside the parameters 
+  // Loop if answer is outside parameters 
   while(confirmLength <= 7 || confirmLength >= 129) {
-      alert("Password length must be between 8-128 characters Try again");
+      alert("Password length must be between 8-128 characters. Try again");
       var confirmLength = (prompt("How many characters would you like your password to contain?"));
       } 
 
-    // Determine parameters of password 
+    // Determine parameters  
     var confirmSpecialCharacter = confirm("Click OK to confirm if you would like to include special characters");
     var confirmNumericCharacter = confirm("Click OK to confirm if you would like to include numeric characters");    
     var confirmLowerCase = confirm("Click OK to confirm if you would like to include lowercase characters");
     var confirmUpperCase = confirm("Click OK to confirm if you would like to include uppercase characters");
       
-    // Loop if answer is outside the parameters 
+    // Loop if answer is outside parameters 
       while(confirmUpperCase === false && confirmLowerCase === false && confirmSpecialCharacter === false && confirmNumericCharacter === false) {
         alert("You must choose at least one parameter");
         var confirmSpecialCharacter = confirm("Click OK to confirm if you would like to include special characters");
@@ -36,6 +36,37 @@ function generatePassword() {
         var confirmLowerCase = confirm("Click OK to confirm if you would like to include lowercase characters");
         var confirmUpperCase = confirm("Click OK to confirm if you would like to include uppercase characters");   
     } 
+
+    // Assign an action to the password parameters NEED TO FIX THIS
+    var passwordCharacters = []
+      
+    if (confirmSpecialCharacter) {
+      passwordCharacters = passwordCharacters.concat(specialChar)
+    }
+
+    if (confirmNumericCharacter) {
+      passwordCharacters = passwordCharacters.concat(number)
+    }
+      
+    if (confirmLowerCase) {
+      passwordCharacters = passwordCharacters.concat(alphaLower)
+    }
+
+    if (confirmUpperCase) {
+      passwordCharacters = passwordCharacters.concat(alphaUpper)
+    }
+
+      console.log(passwordCharacters)
+
+      // Empty string to be filled based on for loop selecting random characters from the array
+      var randomPassword = ""
+      
+      for (var i = 0; i < confirmLength; i++) {
+        randomPassword = randomPassword + passwordCharacters[Math.floor(Math.random() * passwordCharacters.length)];
+        console.log(randomPassword)
+      }
+      return randomPassword;
+}
 
 // Get references to the #generate element
 var generateBtn = document.querySelector("#generate");
